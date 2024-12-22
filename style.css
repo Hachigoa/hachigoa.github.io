@@ -1,0 +1,124 @@
+/* General Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #dcdcdc;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    animation: fadeIn 1.2s ease;
+}
+
+/* Forms and Buttons */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+input, select {
+    flex: 1 1 45%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.primary-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+    background-color: #388e3c;
+}
+
+/* Cards */
+.card {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Timer */
+#timerDisplay {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#timer {
+    font-size: 2.5rem;
+    margin-top: 10px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #ddd;
+    font-size: 0.9rem;
+}
+/* Import and Export Button Styles */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.primary-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+

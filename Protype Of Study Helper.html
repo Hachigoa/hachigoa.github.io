@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Scheduler</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Pro.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Study Scheduler</h1>
+            <p class="subtitle">Plan your study sessions with efficiency and focus.</p>
+        </header>
+
+        <!-- Add Subject Section -->
+        <section class="section">
+            <h2>Add Subjects</h2>
+            <form id="addSubjectForm">
+                <input type="text" id="newSubject" placeholder="Enter a subject name" required>
+                <button type="submit" class="primary-button">Add Subject</button>
+            </form>
+            <div id="subjectList" class="card">
+                <h3>Your Subjects</h3>
+                <ul id="subjects">
+                    <li class="placeholder">No subjects added yet.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Schedule Settings -->
+        <section class="section">
+            <h2>Set Your Schedule</h2>
+            <form id="scheduleForm">
+                <label for="scheduleType">Select Schedule Type:</label>
+                <select id="scheduleType" required>
+                    <option value="weekday">Weekday Schedule</option>
+                    <option value="weekend">Weekend Schedule</option>
+                </select>
+                <label for="startTime">Start Time:</label>
+                <input type="time" id="startTime" required>
+                <label for="endTime">End Time:</label>
+                <input type="time" id="endTime" required>
+                <button type="submit" class="primary-button">Generate Schedule</button>
+            </form>
+        </section>
+
+        <!-- Display Schedule -->
+        <section class="section">
+            <h2>Your Study Schedule</h2>
+            <div id="scheduleDisplay" class="card">
+                <ul id="scheduleList">
+                    <li class="placeholder">No schedule generated yet.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Countdown Timer -->
+        <section class="section">
+            <h2>Countdown to Next Session</h2>
+            <div id="timerDisplay" class="card">
+                <p id="eventLabel">Loading...</p>
+                <div id="timer">00:00:00</div>
+            </div>
+        </section>
+
+        <!-- Import and Export -->
+        <section class="section">
+            <h2>Import/Export Schedule</h2>
+             <div class="button-group">
+        <input type="file" id="importFile" class="hidden" />
+        <button id="importButton" class="primary-button">Import Schedule</button>
+        <button id="exportButton" class="primary-button">Export Schedule</button>
+    </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Study Scheduler. Focus. Organize. Succeed.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
