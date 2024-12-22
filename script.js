@@ -33,12 +33,15 @@ document.getElementById('scheduleForm').addEventListener('submit', (e) => {
     const startTime = document.getElementById('startTime').value;
     const endTime = document.getElementById('endTime').value;
 
+    console.log(`Generating schedule from ${startTime} to ${endTime}`);
+
     if (!startTime || !endTime || startTime >= endTime) {
         alert('Invalid start or end time.');
         return;
     }
 
     schedule = generateSchedule(scheduleType, startTime, endTime);
+    console.log('Generated Schedule:', schedule);
     displaySchedule();
     startCountdown();
     // Save the schedule to localStorage
@@ -82,6 +85,7 @@ function generateSchedule(type, startTime, endTime) {
         });
     }
 
+    console.log('Schedule Generated:', generatedSchedule);
     return generatedSchedule;
 }
 
@@ -169,6 +173,10 @@ document.getElementById('exportButton').addEventListener('click', () => {
 });
 
 // Import the schedule from a file
+document.getElementById('importButton').addEventListener('click', () => {
+    document.getElementById('importFile').click();
+});
+
 document.getElementById('importFile').addEventListener('change', (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -184,3 +192,19 @@ document.getElementById('importFile').addEventListener('change', (e) => {
     reader.readAsText(file);
 });
 
+// Import subjects from localStorage if available
+document.addEventListener('DOMContentLoaded', () => {
+    const savedSubjects = localStorage.getItem('subjects');
+    if (savedSubjects) {
+        subjects = JSON.parse(savedSubjects);
+        updateSubjectList();
+    }
+
+    // Import schedule from localStorage if available
+    const savedSchedule = localStorage.getItem('schedule');
+    if (savedSchedule) {
+        schedule = JSON.parse(savedSchedule);
+        displaySchedule();
+        startCountdown();
+    }
+});
