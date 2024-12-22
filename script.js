@@ -121,19 +121,20 @@ function startCountdown() {
 
         const remainingTime = targetTime - now;
 
-        console.log('Now:', now); // Log the current time
-        console.log('Target Time:', targetTime); // Log the target time
-        console.log('Remaining Time (ms):', remainingTime); // Log the remaining time in milliseconds
-
+        // If remaining time is negative or less than the session/break duration
         if (remainingTime <= 0) {
             currentIndex++;
             updateTimer();
         } else {
-            const hours = Math.floor((remainingTime / 1000 / 60 / 60));
-            const minutes = Math.floor((remainingTime / 1000 / 60) % 60);
-            const seconds = Math.floor((remainingTime / 1000) % 60);
+            const currentSession = schedule[currentIndex];
+            const sessionDuration = currentSession.type === 'Study Session' ? 90 * 60 * 1000 : 30 * 60 * 1000; // 90 minutes for study, 30 for break
+            const remainingSessionTime = remainingTime < sessionDuration ? remainingTime : sessionDuration;
 
-            document.getElementById('eventLabel').textContent = `Next: ${schedule[currentIndex].subject}`;
+            const hours = Math.floor(remainingSessionTime / 1000 / 60 / 60);
+            const minutes = Math.floor((remainingSessionTime / 1000 / 60) % 60);
+            const seconds = Math.floor((remainingSessionTime / 1000) % 60);
+
+            document.getElementById('eventLabel').textContent = `Next: ${currentSession.subject} (${currentSession.type})`;
             document.getElementById('timer').textContent = `${formatNumber(hours)}:${formatNumber(minutes)}:${formatNumber(seconds)}`;
         }
     }
@@ -182,3 +183,4 @@ document.getElementById('importFile').addEventListener('change', (e) => {
     };
     reader.readAsText(file);
 });
+
