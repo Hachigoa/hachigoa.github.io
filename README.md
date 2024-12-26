@@ -1,3 +1,3 @@
 # My-Website
-Protype for website timer
+Prototype for website timer please give feedback
 https://hachigoa.github.io
