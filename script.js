@@ -20,6 +20,17 @@ function updateSubjectList() {
     subjects.forEach((subject) => {
         const li = document.createElement('li');
         li.textContent = subject;
+        
+        // Add a remove button to each subject
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.className = 'remove-button';
+        removeButton.addEventListener('click', () => {
+            subjects = subjects.filter(s => s !== subject);
+            updateSubjectList();
+        });
+        li.appendChild(removeButton);
+        
         subjectList.appendChild(li);
     });
 }
@@ -211,4 +222,9 @@ document.getElementById('exportButton').addEventListener('click', () => {
     a.download = 'study_schedule.txt';
     a.click();
     URL.revokeObjectURL(url);
+});
+
+// Dark mode toggle functionality
+document.getElementById('darkModeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
 });
