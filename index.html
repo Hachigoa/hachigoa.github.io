@@ -31,6 +31,12 @@
                     <option value="balanced">Balanced</option>
                     <option value="intensive">Intensive</option>
                 </select>
+                <div id="timeFields">
+                    <label for="startTime">Start Time:</label>
+                    <input type="time" id="startTime" required>
+                    <label for="endTime">End Time:</label>
+                    <input type="time" id="endTime" required>
+                </div>
                 <label for="studyDuration">Study Time (minutes):</label>
                 <input type="number" id="studyDuration" min="15" max="180" value="90" required>
                 <label for="breakDuration">Break Time (minutes):</label>
