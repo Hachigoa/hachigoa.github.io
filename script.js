@@ -35,6 +35,16 @@ function updateSubjectList() {
     });
 }
 
+// Show/hide time fields based on schedule type
+document.getElementById('scheduleType').addEventListener('change', (e) => {
+    const timeFields = document.getElementById('timeFields');
+    if (e.target.value === 'intensive') {
+        timeFields.style.display = 'none';
+    } else {
+        timeFields.style.display = 'block';
+    }
+});
+
 // Generate the schedule
 document.getElementById('scheduleForm').addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent page refresh
@@ -51,9 +61,17 @@ document.getElementById('scheduleForm').addEventListener('submit', (e) => {
     if (scheduleType === 'intensive') {
         schedule = generateIntensiveSchedule(studyDuration, breakDuration);
     } else {
-        // Implement balanced schedule logic if needed
+        const startTime = document.getElementById('startTime').value;
+        const endTime = document.getElementById('endTime').value;
+
+        if (!startTime || !endTime || startTime >= endTime) {
+            alert('Invalid start or end time.');
+            return;
+        }
+
+        schedule = generateBalancedSchedule(studyDuration, breakDuration, startTime, endTime);
     }
-    
+
     displaySchedule();
     startCountdown();
 });
@@ -80,6 +98,39 @@ function generateIntensiveSchedule(studyDuration, breakDuration) {
                 end: formatTime(currentTime + breakDuration),
             });
             currentTime += breakDuration;
+        }
+    }
+
+    return generatedSchedule;
+}
+
+// Generate the schedule logic for balanced mode
+function generateBalancedSchedule(studyDuration, breakDuration, startTime, endTime) {
+    const generatedSchedule = [];
+    let currentTime = parseTime(startTime);
+    const endMinutes = parseTime(endTime);
+
+    while (currentTime + studyDuration <= endMinutes) {
+        for (const subject of subjects) {
+            if (currentTime + studyDuration > endMinutes) break;
+
+            generatedSchedule.push({
+                subject,
+                type: 'Study Session',
+                start: formatTime(currentTime),
+                end: formatTime(currentTime + studyDuration),
+            });
+            currentTime += studyDuration;
+
+            if (currentTime + breakDuration <= endMinutes) {
+                generatedSchedule.push({
+                    subject: 'Break',
+                    type: 'Break',
+                    start: formatTime(currentTime),
+                    end: formatTime(currentTime + breakDuration),
+                });
+                currentTime += breakDuration;
+            }
         }
     }
 
@@ -136,6 +187,11 @@ function startCountdown() {
 }
 
 // Helper functions
+function parseTime(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+}
+
 function formatTime(minutes) {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
@@ -211,11 +267,6 @@ document.getElementById('exportButton').addEventListener('click', () => {
     a.download = 'study_schedule.txt';
     a.click();
     URL.revokeObjectURL(url);
-});
-
-// Dark mode toggle functionality
-document.getElementById('darkModeToggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
 });
 
 // Dark mode toggle functionality
