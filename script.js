@@ -35,19 +35,29 @@ function updateSubjectList() {
     });
 }
 
-// Show/hide time fields based on schedule type
-document.getElementById('scheduleType').addEventListener('change', (e) => {
+// Show/hide time fields and schedule based on schedule type
+document.getElementById('scheduleType').addEventListener('change', toggleFieldsAndSchedule);
+
+function toggleFieldsAndSchedule() {
+    const scheduleType = document.getElementById('scheduleType').value;
     const timeFields = document.getElementById('timeFields');
-    if (e.target.value === 'intensive') {
+    const scheduleSection = document.getElementById('scheduleSection');
+
+    if (scheduleType === 'intensive') {
         timeFields.style.display = 'none';
+        scheduleSection.style.display = 'none';
         document.getElementById('startTime').required = false;
         document.getElementById('endTime').required = false;
     } else {
         timeFields.style.display = 'block';
+        scheduleSection.style.display = 'block';
         document.getElementById('startTime').required = true;
         document.getElementById('endTime').required = true;
     }
-});
+}
+
+// Initial call to set the correct fields and schedule visibility
+toggleFieldsAndSchedule();
 
 // Generate the schedule
 document.getElementById('scheduleForm').addEventListener('submit', (e) => {
@@ -64,6 +74,8 @@ document.getElementById('scheduleForm').addEventListener('submit', (e) => {
 
     if (scheduleType === 'intensive') {
         schedule = generateIntensiveSchedule(studyDuration, breakDuration);
+        displaySchedule(); // To update the schedule list even if it's hidden
+        startCountdown(true); // Pass true to indicate intensive mode
     } else {
         const startTime = document.getElementById('startTime').value;
         const endTime = document.getElementById('endTime').value;
@@ -74,10 +86,9 @@ document.getElementById('scheduleForm').addEventListener('submit', (e) => {
         }
 
         schedule = generateBalancedSchedule(studyDuration, breakDuration, startTime, endTime);
+        displaySchedule(); // To show the schedule list
+        startCountdown(false); // Pass false to indicate balanced mode
     }
-
-    displaySchedule();
-    startCountdown();
 });
 
 // Generate the schedule logic for intensive mode
@@ -151,7 +162,7 @@ function displaySchedule() {
 }
 
 // Start the countdown timer
-function startCountdown() {
+function startCountdown(isIntensive) {
     clearInterval(timerInterval);
     if (schedule.length === 0) return;
 
@@ -186,6 +197,14 @@ function startCountdown() {
 
     timerInterval = setInterval(updateTimer, 1000);
     updateTimer();
+
+    // Hide or show schedule section based on mode
+    const scheduleSection = document.getElementById('scheduleSection');
+    if (isIntensive) {
+        scheduleSection.style.display = 'none';
+    } else {
+        scheduleSection.style.display = 'block';
+    }
 }
 
 // Helper functions
@@ -244,7 +263,7 @@ document.getElementById('importFile').addEventListener('change', (event) => {
             displaySchedule();
 
             // Restart the countdown with the imported schedule
-            startCountdown();
+            startCountdown(false); // Assuming imported schedules are for balanced mode
         };
         reader.readAsText(file);
     } else {
@@ -275,3 +294,29 @@ document.getElementById('exportButton').addEventListener('click', () => {
 document.getElementById('darkModeToggle').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 });
+
+// Example of safe redirection (if needed in the future)
+
+// Whitelisted URLs
+const allowedUrls = [
+    'https://example.com/home',
+    'https://example.com/profile',
+    'https://example.com/dashboard'
+];
+
+// Function to safely redirect
+function safeRedirect(url) {
+    if (allowedUrls.includes(url)) {
+        window.location.href = url;
+    } else {
+        console.error('Invalid URL redirection attempt:', url);
+        alert('Invalid redirection attempt. Redirecting to home.');
+        window.location.href = 'https://example.com/home';
+    }
+}
+
+// Example usage for safe redirection (uncomment and modify as needed)
+// document.getElementById('redirectButton').addEventListener('click', () => {
+//     const userProvidedUrl = document.getElementById('urlInput').value.trim();
+//     safeRedirect(userProvidedUrl);
+// });
