@@ -28,6 +28,56 @@ header h1 {
     color: #dcdcdc;
 }
 
+/* Dark Mode Toggle Button */
+#darkModeToggle {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+#darkModeToggle:hover {
+    background-color: #e68900;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    background: linear-gradient(to right, #333, #444);
+    color: #ffffff;
+}
+
+body.dark-mode header h1,
+body.dark-mode .subtitle,
+body.dark-mode label {
+    color: #dcdcdc;
+}
+
+body.dark-mode .container {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .primary-button {
+    background-color: #4caf50;
+}
+
+body.dark-mode .primary-button:hover {
+    background-color: #388e3c;
+}
+
+body.dark-mode .remove-button {
+    background-color: #ff4c4c;
+}
+
+body.dark-mode .remove-button:hover {
+    background-color: #ff1c1c;
+}
+
 /* Container */
 .container {
     max-width: 900px;
@@ -58,16 +108,33 @@ input, select {
 .primary-button {
     background-color: #4caf50;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     align-self: center;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
 .primary-button:hover {
     background-color: #388e3c;
+}
+
+/* Remove Button */
+button.remove-button {
+    margin-left: 10px;
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button.remove-button:hover {
+    background-color: #ff1c1c;
 }
 
 /* Cards */
@@ -110,22 +177,6 @@ footer {
     margin-top: 20px;
 }
 
-.primary-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-}
-
-.primary-button:hover {
-    background-color: #0056b3;
-}
-
 .hidden {
     display: none;
 }
@@ -150,19 +201,4 @@ form label {
 form input,
 form select {
     margin-bottom: 20px;
-}
-
-/* Make buttons more distinct */
-.primary-button {
-    background-color: #4caf50;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    border: none;
-    font-size: 1.1rem;
-}
-
-.primary-button:hover {
-    background-color: #388e3c;
 }
