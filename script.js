@@ -1,3 +1,4 @@
+let subjects = [];
 let schedule = [];
 let timerInterval;
 
