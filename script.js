@@ -40,8 +40,12 @@ document.getElementById('scheduleType').addEventListener('change', (e) => {
     const timeFields = document.getElementById('timeFields');
     if (e.target.value === 'intensive') {
         timeFields.style.display = 'none';
+        document.getElementById('startTime').required = false;
+        document.getElementById('endTime').required = false;
     } else {
         timeFields.style.display = 'block';
+        document.getElementById('startTime').required = true;
+        document.getElementById('endTime').required = true;
     }
 });
 
@@ -81,24 +85,22 @@ function generateIntensiveSchedule(studyDuration, breakDuration) {
     const generatedSchedule = [];
     let currentTime = 0;
 
-    while (true) {
-        for (const subject of subjects) {
-            generatedSchedule.push({
-                subject,
-                type: 'Study Session',
-                start: formatTime(currentTime),
-                end: formatTime(currentTime + studyDuration),
-            });
-            currentTime += studyDuration;
+    for (const subject of subjects) {
+        generatedSchedule.push({
+            subject,
+            type: 'Study Session',
+            start: formatTime(currentTime),
+            end: formatTime(currentTime + studyDuration),
+        });
+        currentTime += studyDuration;
 
-            generatedSchedule.push({
-                subject: 'Break',
-                type: 'Break',
-                start: formatTime(currentTime),
-                end: formatTime(currentTime + breakDuration),
-            });
-            currentTime += breakDuration;
-        }
+        generatedSchedule.push({
+            subject: 'Break',
+            type: 'Break',
+            start: formatTime(currentTime),
+            end: formatTime(currentTime + breakDuration),
+        });
+        currentTime += breakDuration;
     }
 
     return generatedSchedule;
